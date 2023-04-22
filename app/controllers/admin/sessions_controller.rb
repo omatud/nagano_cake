@@ -2,16 +2,23 @@
 
 class Admin::SessionsController < Devise::SessionsController
 
-  def new
 
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
+  def after_sign_in_path_for(resource)
+    admin_items_path
   end
 
-  def create
 
+
+  def after_sign_out_path_for(resource)
+    new_admin_session_path
   end
 
-  def destroy
+  protected
 
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:email])
   end
 
 

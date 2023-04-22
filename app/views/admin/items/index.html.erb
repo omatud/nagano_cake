@@ -1,0 +1,22 @@
+<h1>商品一覧</h1>
+
+
+商品ID
+商品名
+税抜価格
+ジャンル
+ステータス
+
+<% @items.each do |item| %>
+
+<%= item.id %>
+<%= link_to admin_item_path(item.id) do %>
+<%= item.name %>
+<% end %>
+<%= item.price %>
+<%= item.genre.name %>
+<%= item.status_text %>
+<br>
+<% end %>
+
+

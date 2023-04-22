@@ -2,19 +2,6 @@
 
 class Public::SessionsController < Devise::SessionsController
   
-  def new
-  
-  end
-  
-  def create
-  
-  
-  end
-  
-  def destroy
-  
-  end
-  
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in

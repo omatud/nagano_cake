@@ -1,0 +1,11 @@
+<%= form_with model: @item, url: admin_items_path, method: :post do |f| %>
+
+商品画像        <%= f.file_field :image %>
+商品名          <%= f.text_field :name %>
+商品説明        <%= f.text_area :introduction %>
+ジャンル        <%= f.collection_select(:genre_id, @genres, :id, :name) %>
+税抜価格        <%= f.number_field :price %>円
+販売ステータス  <%= f.radio_button :is_active,true %>販売中
+                <%= f.radio_button :is_active,false %>販売停止中
+                <%= f.submit"新規登録" %>
+<% end %>
