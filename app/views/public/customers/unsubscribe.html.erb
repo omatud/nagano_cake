@@ -2,4 +2,4 @@
 <h2>退会すると会員登録情報やこれまでの購入履歴が見れなくなります。退会する場合は「退会する」をクリックしてください。</h2>
 
 <%= link_to"退会しない",customers_path %>
-<%= link_to"退会する",root_path,method: :delete,"data-confirm" => "本当に退会しますか？" %>
+<%= link_to"退会する",customers_withdraw_path,method: :patch %>

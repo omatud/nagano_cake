@@ -1,1 +1,18 @@
 <h1>top</h1>
+ようこそ、ながの、ながのケーキへ！
+このサイトは、ケーキ販売のECサイトになります。
+会員でない方も商品の閲覧は出来ますが、
+購入には会員登録が必要になります。
+
+<h1>新着商品</h1>
+<% @items.each do |item| %>
+
+<%= link_to item_path(item.id) do %>
+<%= image_tag item.get_image%>
+<%= item.name %>
+<%= (item.price*1.10).floor %>
+
+<% end %>
+<% end %>
+
+<%= link_to "全ての商品を見る", items_path %>

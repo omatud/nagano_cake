@@ -1,6 +1,8 @@
 class Admin::HomesController < ApplicationController
-def top
 
+def top
+    @order_histories = OrderHistory.all
+    @order_history_details = OrderHistoryDetail.all
 
 end
 

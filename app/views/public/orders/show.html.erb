@@ -1,0 +1,56 @@
+<h1>注文履歴詳細</h1>
+
+注文情報
+
+注文日
+　<%= @order_history.created_at %>
+
+配送先
+〒<%= @order_history.postal_code %>
+
+　<%= @order_history.address %>
+
+　<%= @order_history.name %>
+
+支払方法
+  <%= @order_history.payment_method_i18n %>
+
+ステータス
+
+請求情報
+
+商品合計
+  <% @order_history.order_history_details.each  do |order_history_detail|%>
+  <% @total +=  order_history_detail.subtotal %>
+  <% end %>
+<%= @total %>
+
+
+配送料
+　<%= @order_history.postage %>
+
+ご請求金額
+<% total_payment = @total + @order_history.postage %>
+
+　<%= @order_history.total_payment %>
+
+
+注文内容
+
+商品
+単価（税込み）
+個数
+
+  <% @order_history.order_history_details.each  do |order_history_detail|%>
+
+  <%= order_history_detail.item.name %>
+
+  <%= order_history_detail.tax_included_price %>
+
+  <%= order_history_detail.quantity %>
+
+  <%= order_history_detail.subtotal %>
+
+  <% @total +=  order_history_detail.subtotal %>
+
+  <% end %>

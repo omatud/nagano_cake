@@ -1,1 +1,15 @@
 <h1>注文履歴一覧</h1>
+
+購入日時
+購入者
+注文個数
+<% @order_histories.each do |order_history| %>
+
+<%= link_to admin_order_history_path(order_history.id) do %>
+<%= order_history.created_at %>
+<% end %>
+<%= order_history.name %>
+
+<%= order_history.order_history_details.sum(:quantity) %>
+
+<% end %>

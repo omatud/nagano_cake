@@ -1,0 +1,49 @@
+<h1>注文情報確認画面</h1>
+
+<%= form_with model: @order_history, url: orders_path do |f| %>
+
+
+商品名
+単価（税込）
+数量
+小計
+
+<% @cart_items.each do |cart_item| %>
+
+<%= cart_item.item.name %>
+
+<%= cart_item.item.with_tax_price %>
+
+<%= cart_item.amount %>
+
+<%= cart_item.subtotal %>
+
+<% @total +=  cart_item.subtotal %>
+
+<% end %>
+
+送料
+<%= @order_history.postage %>
+
+商品合計
+<%= @total %>
+
+請求金額
+<%= @total_payment = @total + @order_history.postage %>
+
+支払方法
+<%= @order_history.payment_method_i18n %>
+お届け先
+〒<%= @order_history.postal_code %>
+
+<%= f.hidden_field:payment_method, :value => @order_history.payment_method %>
+<%= f.hidden_field:address,        :value => @order_history.address %>
+<%= f.hidden_field:postal_code,    :value => @order_history.postal_code %>
+<%= f.hidden_field:name,           :value => @order_history.name %>
+<%= f.hidden_field:postage,        :value => @order_history.postage %>
+<%= f.hidden_field:total_payment,  :value => @total_payment %>
+
+
+<%= f.submit '注文を確定する' %>
+
+<% end %>
