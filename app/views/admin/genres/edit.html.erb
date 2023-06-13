@@ -1,7 +1,17 @@
-<%= form_with model: @genre, url: admin_genre_path(@genre.id), method: :patch do |f| %>
- 
-<%= f.label :ジャンル名 %>
-<%= f.text_field :name %>
-<%= f.submit %>
+<div class="container">
+  
+  <%= form_with model: @genre, url: admin_genre_path(@genre.id), method: :patch do |f| %>
 
-<% end %>
+  <div class="row pt-4">
+    <div class="col">
+      <%= f.label :ジャンル名 %>
+    </div>
+    <div class="col">
+      <%= f.text_field :name %>
+    </div>
+    <div class="col">
+      <%= f.submit '変更を保存' %>
+    </div>
+  </div>
+  <% end %>
+</div>

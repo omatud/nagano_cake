@@ -49,6 +49,8 @@ class Public::OrdersController < ApplicationController
   def create
     @order_history = OrderHistory.new(order_history_params)
     @order_history.customer_id = current_customer.id
+    @order_history.total_payment = params[:order_history][:total_payment]
+    @order_history.postage = 800
     @order_history.save!
 
     @cart_items = current_customer.cart_items

@@ -1,13 +1,23 @@
-<h1>商品一覧</h1>
-<%= render '/public/items/items_sideber', genres: @genres %>
 
-<% @items.each do |item| %>
 
-<%= link_to item_path(item.id) do %>
-<%= image_tag item.get_image%>
-<%= item.name %>
-<%= (item.price*1.10).floor %>
-
-<% end %>
-
-<% end %>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-3">
+      <%= render '/public/items/items_sideber', genres: @genres %>
+    </div>
+    <div class="row col-9">
+      <div class="col-12">
+        <h1>商品一覧</h1>
+      </div>
+      <% @items.each do |item| %>
+        <div class="col-3 text-center">
+          <%= link_to item_path(item.id) do %>
+            <%= image_tag item.get_image%><br>
+            <%= item.name %><br>
+            <%= (item.price*1.10).floor %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>    
+  </div>
+</div>

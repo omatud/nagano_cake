@@ -1,34 +1,101 @@
+
+
 <h1>注文履歴詳細</h1>
+<div class="container">
+  <div class="row">
+    <div class="col container">
+      <div class="row pt-4">
+        <div class="col text-center">
+          購入者
+        </div>
+        <div class="col">
+          <%= @order_history.name %>
+        </div>
+      </div>
+      <div class="row pt-4">
+        <div class="col text-center">
+          注文日
+        </div>
+        <div class="col">
+          <%= @order_history.created_at %>
+        </div>
+      </div>
+      <div class="row pt-4">
+        <div class="col text-center">
+          配送先
+        </div>
+        <div class="col">
+          〒<%= @order_history.postal_code %>
+          <%= @order_history.address %>
+        </div>
+      </div>
+      <div class="row pt-4">
+        <div class="col text-center">
+          支払方法
+        </div>
+        <div class="col">
+        <%= @order_history.payment_method_i18n %>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row pt-4">
+    <div class="col">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>商品名</th>
+            <th>単価（税込み）</th>
+            <th>数量</th>
+            <th>小計</th>
+          </tr>
+        </thead>
 
-購入者
-　<%= @order_history.name %>
+          <% @order_history.order_history_details.each  do |order_history_detail|%>
 
-注文日
-　<%= @order_history.created_at %>
+        <tbody>
+          <tr>
+            <td>  <%= order_history_detail.item.name %></td>
+            <td>  <%= order_history_detail.tax_included_price %></td>
+            <td>  <%= order_history_detail.quantity %></td>
+            <td>  <%= order_history_detail.subtotal %></td>
+          </tr>
+        </tbody>
 
-配送先
-〒<%= @order_history.postal_code %>
+          <% end %>
 
-　<%= @order_history.address %>
-支払方法
-  <%= @order_history.payment_method_i18n %>
+      </table>
+    </div>
+    <div class="col text-center container">
+      <div class="row">
+        <div class="col">
+          商品合計
+        </div>
+        <div class="col">
+          <% @order_history.order_history_details.each  do |order_history_detail|%>
+          <% @total +=  order_history_detail.subtotal %>
+          <% end %>
+          <%= @total %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          送料
+        </div>
+        <div class="col">
+          <%= @order_history.postage %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          請求金額合計
+        </div>
+        <div class="col">
+          <%= @order_history.total_payment %>
+        </div>
+      </div>
+    </div>
+</div>
 
-注文ステータス
-
-商品名
-単価（税込）
-数量
-小計
-制作ステータス
-  <% @order_history.order_history_details.each  do |order_history_detail|%>
-
-  <%= order_history_detail.item.name %>
-
-  <%= order_history_detail.tax_included_price %>
-
-  <%= order_history_detail.quantity %>
-
-  <%= order_history_detail.subtotal %>
-
-  <% end %>
 

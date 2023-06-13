@@ -1,11 +1,62 @@
-<%= form_with model: @item, url: admin_items_path, method: :post do |f| %>
+<div class="container">
+  
+  <h1>商品新規登録</h1>
+  
+  <%= form_with model: @item, url: admin_items_path, method: :post do |f| %>
 
-商品画像        <%= f.file_field :image %>
-商品名          <%= f.text_field :name %>
-商品説明        <%= f.text_area :introduction %>
-ジャンル        <%= f.collection_select(:genre_id, @genres, :id, :name) %>
-税抜価格        <%= f.number_field :price %>円
-販売ステータス  <%= f.radio_button :is_active,true %>販売中
-                <%= f.radio_button :is_active,false %>販売停止中
-                <%= f.submit"新規登録" %>
-<% end %>
+  <div class="row justify-content-center">
+    <div class="col pt-3 text-center">
+      商品画像
+    </div>
+    <div class="col pt-3">
+      <%= f.file_field :image %>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col pt-3 text-center">
+      商品名 
+    </div>
+    <div class="col pt-3">
+      <%= f.text_field :name %>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col pt-3 text-center">
+      商品説明
+    </div>
+    <div class="col pt-3">
+      <%= f.text_area :introduction %>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col pt-3 text-center">
+      ジャンル 
+    </div>
+    <div class="col pt-3">
+      <%= f.collection_select(:genre_id, @genres, :id, :name) %>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col pt-3 text-center">
+      税抜価格  
+    </div>
+    <div class="col pt-3">
+      <%= f.number_field :price %>円
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col pt-3 text-center">
+      販売ステータス
+    </div>
+    <div class="col pt-3">
+      <%= f.radio_button :is_active,true %>販売中
+      <%= f.radio_button :is_active,false %>販売停止中
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col pt-3 text-center">
+      <%= f.submit"新規登録" %>
+    </div>
+  </div>
+  <% end %>
+</div>

@@ -1,34 +1,64 @@
-<h1>ショッピングカート</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h1>ショッピングカート</h1>
+    </div>
+    <div class="col-md-2 offset-md-4 pt-3">
+      <%= link_to "カートを空にする", cart_items_destroy_all_path, method: :delete,"data-confirm" => "本当に消しますか？",class:"btn btn-danger" %>
+    </div>
 
-<%= link_to "カートを空にする", cart_items_destroy_all_path, method: :delete,"data-confirm" => "本当に消しますか？" %>
+  </div>
 
-商品名
-単価
-数量
-小計
-<% @cart_item.each do |cart_item| %>
+  <div class="row justify-content-center">
+    <div class="col">
 
-<%= cart_item.item.name %>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">商品名</th>
+            <th scope="col">単価</th>
+            <th scope="col">数量</th>
+            <th scope="col">小計</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @cart_item.each do |cart_item| %>
+          <tr>
+            <td><%= cart_item.item.name %></td>
+            <td><%= cart_item.item.with_tax_price %></td>
+            <%= form_with model: @cart_item, url: cart_item_path(cart_item.id), method: :patch do |f| %>
+            <td><%= f.select :amount, *[1..10] %>
+                <%= f.submit"変更" %>
+            </td>
+            <% end %>
+            <td><%= cart_item.subtotal %></td>
+            <td><%= link_to "削除する", cart_item_path(cart_item.id), method: :delete,"data-confirm" => "本当に消しますか？",class:"btn btn-danger" %></td>
+            <% @total +=  cart_item.subtotal %>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div class="row">
+        <div class="col-md-4">
+          <%= link_to "買い物を続ける", root_path, class:"btn btn-primary" %>
+        </div>
+        <div class="col-md-4 offset-md-4">
+          <table class="table table-bordered">
+            <tbody>
+              <th scope="col">合計金額</th>
+              <td><%= @total %></td>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col text-center">
+          <%= link_to "情報入力に進む", new_order_path, class:"btn btn-sm btn-success" %>
+        </div>
+      </div>
 
-<%= cart_item.item.with_tax_price %>
-
-<%= form_with model: @cart_item, url: cart_item_path(cart_item.id), method: :patch do |f| %>
-
-<%= f.select :amount, *[1..10] %>
-<%= f.submit"変更" %>
-
-<% end %>
-
-<%= cart_item.subtotal %>
-
-<%= link_to "削除する", cart_item_path(cart_item.id), method: :delete,"data-confirm" => "本当に消しますか？" %>
-
-
-<% @total +=  cart_item.subtotal %>
-
-<% end %>
-合計金額
-<%= @total %>
-<%= link_to "買い物を続ける", root_path %>
-<%= link_to "情報入力に進む", new_order_path %>
-
+    </div>
+  </div>
+</div>

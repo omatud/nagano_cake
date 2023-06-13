@@ -1,49 +1,80 @@
-<h1>注文情報確認画面</h1>
+<div class="container">
+  <h1>注文情報確認画面</h1>
+  <div class="row">
+    <div class="col-7">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>商品名</th>
+            <th>単価（税込</th>
+            <th>数量</th>
+            <th>小計</th>
+          </tr>
+        </thead>
+        <% @cart_items.each do |cart_item| %>
+        <tbody>
+          <tr>
+            <td><%= cart_item.item.name %></td>
+            <td><%= cart_item.item.with_tax_price %></td>
+            <td><%= cart_item.amount %></td>
+            <td><%= cart_item.subtotal %></td>
 
-<%= form_with model: @order_history, url: orders_path do |f| %>
+            <% @total +=  cart_item.subtotal %>
+
+          </tr>
+        </tbody>
+        <% end %>
+      </table>
+    </div>
+
+    <div class="col-5">
+      <table class="table table-bordered">
+
+        <tbody>
+          <tr>
+            <th>送料</th>
+            <td><%= @order_history.postage %></td>
+          </tr>
+          <tr>
+            <th>商品合計</th>
+            <td><%= @total %></td>
+          </tr>
+          <tr>
+            <th>請求金額</th>
+            <td><%= @total_payment = @total + @order_history.postage %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <div class="row justify-content-center">
+    <div class="col">
+      支払方法
+      <%= @order_history.payment_method_i18n %>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col">
+      お届け先
+      〒<%= @order_history.postal_code %>
+    </div>
+  </div>
 
 
-商品名
-単価（税込）
-数量
-小計
 
-<% @cart_items.each do |cart_item| %>
+  <div class="row justify-content-center">
+    <div class="col text-center">
+      <%= form_with model: @order_history, url: orders_path do |f| %>
+        <%= f.hidden_field:address,        :value => @order_history.address %>
+        <%= f.hidden_field:postal_code,    :value => @order_history.postal_code %>
+        <%= f.hidden_field:name,           :value => @order_history.name %>
+        <%= f.hidden_field:postage,        :value => @order_history.postage %>
+        <%= f.hidden_field:total_payment,  :value => @total_payment %>
+        <%= f.hidden_field:payment_method, :value => @order_history.payment_method %>
+        <%= f.submit '注文を確定する' %>
+      <% end %>
+    </div>
+  </div>
+</div>
 
-<%= cart_item.item.name %>
-
-<%= cart_item.item.with_tax_price %>
-
-<%= cart_item.amount %>
-
-<%= cart_item.subtotal %>
-
-<% @total +=  cart_item.subtotal %>
-
-<% end %>
-
-送料
-<%= @order_history.postage %>
-
-商品合計
-<%= @total %>
-
-請求金額
-<%= @total_payment = @total + @order_history.postage %>
-
-支払方法
-<%= @order_history.payment_method_i18n %>
-お届け先
-〒<%= @order_history.postal_code %>
-
-<%= f.hidden_field:payment_method, :value => @order_history.payment_method %>
-<%= f.hidden_field:address,        :value => @order_history.address %>
-<%= f.hidden_field:postal_code,    :value => @order_history.postal_code %>
-<%= f.hidden_field:name,           :value => @order_history.name %>
-<%= f.hidden_field:postage,        :value => @order_history.postage %>
-<%= f.hidden_field:total_payment,  :value => @total_payment %>
-
-
-<%= f.submit '注文を確定する' %>
-
-<% end %>

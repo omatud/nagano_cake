@@ -1,20 +1,39 @@
-<h1></h1>
-<%= image_tag @item.get_image%>
 
-<%= @item.name %>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-3">
+            <%= render '/public/items/items_sideber', genres: @genres %>
+        </div>
+        <div class="col-9">
 
-<%= @item.introduction %>
+        <div class="row">
+            <div class="col-5 text-center">
+                <%= image_tag @item.get_image%>
+            </div>
+            <div class="col-7 text-center">
+                <%= @item.name %><br>
 
-¥<%= (@item.price*1.10).floor %>円（税込み）
+                <%= @item.introduction %><br>
 
-<%= form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>
+                ¥<%= (@item.price*1.10).floor %>円（税込み）<br>
 
-<%= f.hidden_field :item_id, :value => @item.id %>
+                <%= form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>
 
-<%= f.select :amount, *[1..10] %>
+                <%= f.hidden_field :item_id, :value => @item.id %>
 
-<%= f.submit "カートに入れる" %>
-<% end %>
+                <%= f.select :amount, *[1..10] %>
+
+                <%= f.submit "カートに入れる" %>
+                <% end %>
+
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 
 
