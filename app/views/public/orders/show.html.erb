@@ -73,18 +73,15 @@
                 <th>小計</th>
               </tr>
             </thead>
-            
+
             <% @order_history.order_history_details.each  do |order_history_detail|%>
-            
+
             <tbody>
               <tr>
                 <td><%= order_history_detail.item.name %></td>
                 <td><%= order_history_detail.tax_included_price %></td>
                 <td><%= order_history_detail.quantity %></td>
-                
-                <% @total +=  order_history_detail.subtotal %>
-                
-                <td><%= @total %></td>
+                <td><%= order_history_detail.subtotal %></td>
               </tr>
             </tbody>
             <% end %>

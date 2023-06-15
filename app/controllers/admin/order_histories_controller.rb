@@ -1,5 +1,7 @@
 class Admin::OrderHistoriesController < ApplicationController
 
+  before_action :authenticate_admin!, except: [:top,:about]
+
   def update
 
   end

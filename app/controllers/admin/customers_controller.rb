@@ -1,5 +1,7 @@
 class Admin::CustomersController < ApplicationController
 
+  before_action :authenticate_admin!, except: [:top,:about]
+
 
   def update
     @customer = Customer.find(params[:id])
@@ -17,7 +19,7 @@ class Admin::CustomersController < ApplicationController
 
 
   def index
-    @customers = Customer.all
+    @customers = Customer.all.page(params[:page]).per(10)
 
 
   end

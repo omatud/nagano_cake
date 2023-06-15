@@ -1,4 +1,7 @@
 class Public::OrdersController < ApplicationController
+
+    before_action :authenticate_customer!
+    before_action :ensure_cart_items, only: [:new, :confirm, :create]
   def new
     @order_history = OrderHistory.new
   end
@@ -97,5 +100,10 @@ class Public::OrdersController < ApplicationController
 
   def order_history_params
     params.require(:order_history).permit(:payment_method, :postal_code, :address, :name, :postage, :total_payment)
+  end
+
+  def ensure_cart_items
+    @cart_items = current_customer.cart_items
+    redirect_to items_path unless @cart_items.first
   end
 end

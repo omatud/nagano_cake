@@ -1,5 +1,7 @@
 class Admin::GenresController < ApplicationController
 
+  before_action :authenticate_admin!, except: [:top,:about]
+
 
   def update
     @genre = Genre.find(params[:id])
